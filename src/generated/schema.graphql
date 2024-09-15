@@ -1,0 +1,35 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+directive @external on FIELD_DEFINITION
+
+directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
+
+directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
+
+directive @key(fields: _FieldSet!) on OBJECT | INTERFACE
+
+scalar Date
+
+type Mutation {
+  doSomething: String! @tag(name: "public")
+}
+
+type MyReturnType @key(fields: "id") {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  getThing: MyReturnType! @tag(name: "public")
+  getThing2: MyReturnType! @tag(name: "internal")
+}
+
+type Subscription {
+  greetings(type: String!): String! @tag(name: "public")
+}
+
+scalar _FieldSet
