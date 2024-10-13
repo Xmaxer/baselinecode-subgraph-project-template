@@ -1,5 +1,5 @@
 {
-  "name": "project-name",
+  "name": "{{project-name}}",
   "version": "1.0.0",
   "scripts": {
     "build": "rm -rf dist && tsx build.mts",
@@ -9,8 +9,8 @@
     "prepare": "husky",
     "prettier": "prettier --write .",
     "prettier:ci": "prettier --check .",
-    "schema:create": "npx wgc subgraph create project-name --routing-url http://domain.com:port/graphql",
-    "schema:publish": "npx wgc subgraph publish project-name --schema ./src/generated/schema.graphql",
+    "schema:create": "npx wgc subgraph create {{project-name}} --routing-url http://domain.com:port/graphql",
+    "schema:publish": "npx wgc subgraph publish {{project-name}} --schema ./src/generated/schema.graphql",
     "start": "ENV_FILE=../../.env tsx src/main.mts",
     "typescript:check": "tsc --noEmit"
   },
