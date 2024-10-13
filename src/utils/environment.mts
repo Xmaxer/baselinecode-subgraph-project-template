@@ -8,7 +8,7 @@ dotenv.config({
   path: path.join(__dirname, process.env.ENV_FILE || '.env'),
 });
 
-const requiredEnvironmentVariables = ['SERVER_PORT'];
+const requiredEnvironmentVariables = ['SERVER_PORT', 'SERVER_HOST'];
 
 requiredEnvironmentVariables.forEach((requiredEnvironmentVariable) => {
   if (!process.env[requiredEnvironmentVariable]) {
@@ -20,6 +20,7 @@ requiredEnvironmentVariables.forEach((requiredEnvironmentVariable) => {
 
 const Environment = {
   SERVER_PORT: parseInt(process.env.SERVER_PORT as string),
+  SERVER_HOST: process.env.SERVER_HOST as string,
   NODE_ENV: (process.env.NODE_ENV as string) || 'production',
 };
 
