@@ -4,11 +4,13 @@ import cors from 'cors';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import express from 'express';
-import { useServer } from 'graphql-ws/lib/use/ws';
+import { useServer } from 'graphql-ws/use/ws';
+import { GraphQLError } from 'graphql/error';
 import http from 'http';
 import { WebSocketServer } from 'ws';
 
 import { ApolloServer } from '@apollo/server';
+import { unwrapResolverError } from '@apollo/server/errors';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import schema from '@schema/schema.mjs';
@@ -64,6 +66,20 @@ async function startServer() {
         },
       },
     ],
+    formatError: (formattedError, error) => {
+      const isGraphQLError = unwrapResolverError(error) instanceof GraphQLError;
+      logger.error('GraphQL error:', {
+        error,
+        formattedError,
+        isGraphQLError,
+      });
+
+      //Only return obfuscated errors on non local dev environments
+      if (!isGraphQLError && Environment.NODE_ENV !== 'local') {
+        return { message: 'Internal server error' };
+      }
+      return formattedError;
+    },
   });
 
   await server.start();
@@ -96,7 +112,9 @@ async function startServer() {
     bodyParser.json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
-        logger.info(req.body, 'Received ordinary request:');
+        logger.info('Received ordinary request:', {
+          body: req.body,
+        });
         return {};
       },
     }),

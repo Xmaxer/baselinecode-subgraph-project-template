@@ -1,7 +1,7 @@
 import { applyMiddleware } from 'graphql-middleware';
 
+import { buildSubgraphSchema } from '@apollo/subgraph';
 import { applyDirectives } from '@directives/directives.mjs';
-import { buildSubgraphSchema } from '@graphql-tools/federation';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import Middleware from '@middleware/middleware.mjs';
 import resolvers from '@resolvers/resolvers.mjs';

@@ -1,6 +1,6 @@
 import { IFieldResolver } from '@graphql-tools/utils';
 
-const doSomething: IFieldResolver<null, null, null> = async (
+const doSomething: IFieldResolver<null, unknown, null> = async (
   parent,
   args,
   context,
