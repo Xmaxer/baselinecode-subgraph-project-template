@@ -124,7 +124,7 @@ async function startServer() {
     { port: Environment.SERVER_PORT, host: Environment.SERVER_HOST },
     () => {
       logger.info(
-        `Server ready at ${Environment.SERVER_HOST}${Environment.SERVER_PORT}${graphQlPath}`,
+        `Server ready at ${Environment.SERVER_HOST}:${Environment.SERVER_PORT}${graphQlPath}`,
       );
     },
   );
