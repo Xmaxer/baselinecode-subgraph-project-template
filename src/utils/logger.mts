@@ -30,6 +30,10 @@ const logger = pino({
       return method.apply(this, args);
     },
   },
+  level:
+    Environment.NODE_ENV === 'local' || Environment.NODE_ENV === 'dev'
+      ? 'debug'
+      : 'info',
 });
 
 export default logger;
