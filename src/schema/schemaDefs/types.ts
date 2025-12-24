@@ -1,7 +1,7 @@
 import { gql } from 'graphql-tag';
 
 export const types = gql`
-  type MyReturnType @key(fields: "id") {
+  type MyReturnType {
     id: ID!
     name: String!
   }

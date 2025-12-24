@@ -14,9 +14,11 @@ if (Environment.LOGGER_PINO_PRETTY) {
 }
 
 const logger = pino({
-  transport: {
-    targets: transportTargets,
-  },
+  ...(transportTargets.length > 0 && {
+    transport: {
+      targets: transportTargets,
+    },
+  }),
   mixin() {
     return { appName: '{{appName}}' };
   },

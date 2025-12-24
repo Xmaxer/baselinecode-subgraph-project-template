@@ -1,7 +1,5 @@
-import DateScalar from '@scalars/resolvers/DateScalar.mjs';
-
 const Scalars = {
-  Date: DateScalar,
+  // Add your custom scalars here
 };
 
 export default Scalars;
