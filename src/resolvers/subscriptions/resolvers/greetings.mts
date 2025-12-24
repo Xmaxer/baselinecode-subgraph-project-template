@@ -1,5 +1,5 @@
-import { ISubscriptionGreetingsArgs } from '@src/generated/schema.mjs';
-import logger from '@utils/logger.mjs';
+import { ISubscriptionGreetingsArgs } from '~src/generated/schema.mjs';
+import logger from '~utils/logger.mjs';
 
 export const USER_STATUS_CHANGED_EVENT = 'USER_STATUS_CHANGED';
 

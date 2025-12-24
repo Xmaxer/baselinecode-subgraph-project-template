@@ -1,5 +1,5 @@
-import { AnyFunction } from '@src/@types/anyFunction.js';
-import logger from '@utils/logger.mjs';
+import { AnyFunction } from '~src/@types/anyFunction.js';
+import logger from '~utils/logger.mjs';
 
 interface IMeasurePerformanceOptions {
   functionName?: string;

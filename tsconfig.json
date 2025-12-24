@@ -2,14 +2,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["src/utils/*"],
-      "@resolvers/*": ["src/resolvers/*"],
-      "@middleware/*": ["src/middleware/*"],
-      "@schema/*": ["src/schema/*"],
-      "@directives/*": ["src/directives/*"],
-      "@scalars/*": ["src/scalars/*"],
-      "@services/*": ["src/services/*"],
-      "@src/*": ["src/*"]
+      "~utils/*": ["src/utils/*"],
+      "~resolvers/*": ["src/resolvers/*"],
+      "~middleware/*": ["src/middleware/*"],
+      "~schema/*": ["src/schema/*"],
+      "~directives/*": ["src/directives/*"],
+      "~scalars/*": ["src/scalars/*"],
+      "~services/*": ["src/services/*"],
+      "~database/*": ["src/database/*"],
+      "~constants/*": ["src/constants/*"],
+      "~generated/*": ["src/generated/*"],
+      "~src/*": ["src/*"]
     },
     "lib": ["ESNext"],
     "moduleResolution": "NodeNext",

@@ -1,4 +1,4 @@
-import greetings from '@resolvers/subscriptions/resolvers/greetings.mjs';
+import greetings from '~resolvers/subscriptions/resolvers/greetings.mjs';
 
 const Subscriptions = {
   Subscription: {

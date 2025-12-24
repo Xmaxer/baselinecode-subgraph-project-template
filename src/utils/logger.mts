@@ -1,6 +1,5 @@
 import { pino, TransportSingleOptions } from 'pino';
-
-import Environment from '@utils/environment.mjs';
+import Environment from '~utils/environment.mjs';
 
 const transportTargets: Array<TransportSingleOptions> = [];
 

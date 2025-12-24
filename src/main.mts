@@ -7,14 +7,14 @@ import { useServer } from 'graphql-ws/use/ws';
 import { GraphQLError } from 'graphql/error';
 import http from 'http';
 import { WebSocketServer } from 'ws';
+import schema from '~schema/schema.mjs';
+import Environment from '~utils/environment.mjs';
+import logger from '~utils/logger.mjs';
 
 import { ApolloServer } from '@apollo/server';
 import { unwrapResolverError } from '@apollo/server/errors';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { expressMiddleware } from '@as-integrations/express5';
-import schema from '@schema/schema.mjs';
-import Environment from '@utils/environment.mjs';
-import logger from '@utils/logger.mjs';
 
 dayjs.extend(utc);
 

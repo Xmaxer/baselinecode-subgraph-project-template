@@ -1,5 +1,5 @@
-import getThing from '@resolvers/queries/resolvers/getThing.mjs';
-import measurePerformanceAll from '@utils/wrappers/measurePerformance/measurePerformanceAll.mjs';
+import getThing from '~resolvers/queries/resolvers/getThing.mjs';
+import measurePerformanceAll from '~utils/wrappers/measurePerformance/measurePerformanceAll.mjs';
 
 const Queries = {
   Query: measurePerformanceAll({

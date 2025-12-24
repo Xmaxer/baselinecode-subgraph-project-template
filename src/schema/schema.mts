@@ -1,14 +1,14 @@
 import { applyMiddleware } from 'graphql-middleware';
+import { applyDirectives } from '~directives/directives.mjs';
+import Middleware from '~middleware/middleware.mjs';
+import resolvers from '~resolvers/resolvers.mjs';
+import { mutations } from '~schema/schemaDefs/mutations.js';
+import { queries } from '~schema/schemaDefs/queries.js';
+import { subscriptions } from '~schema/schemaDefs/subscriptions.js';
+import { types } from '~schema/schemaDefs/types.js';
 
-import { applyDirectives } from '@directives/directives.mjs';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import Middleware from '@middleware/middleware.mjs';
-import resolvers from '@resolvers/resolvers.mjs';
-import { mutations } from '@schema/schemaDefs/mutations.js';
-import { queries } from '@schema/schemaDefs/queries.js';
-import { subscriptions } from '@schema/schemaDefs/subscriptions.js';
-import { types } from '@schema/schemaDefs/types.js';
 
 const typeDefs = mergeTypeDefs([
   mutations,

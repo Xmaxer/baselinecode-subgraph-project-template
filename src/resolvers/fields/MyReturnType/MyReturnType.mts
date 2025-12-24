@@ -1,4 +1,4 @@
-import { IMyReturnType } from '@src/generated/schema.mjs';
+import { IMyReturnType } from '~src/generated/schema.mjs';
 
 const MyReturnType = {
   MyReturnType: {
