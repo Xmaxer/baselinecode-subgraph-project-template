@@ -1,8 +1,8 @@
 import { applyMiddleware } from 'graphql-middleware';
 
-import { buildSubgraphSchema } from '@apollo/subgraph';
 import { applyDirectives } from '@directives/directives.mjs';
 import { mergeTypeDefs } from '@graphql-tools/merge';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import Middleware from '@middleware/middleware.mjs';
 import resolvers from '@resolvers/resolvers.mjs';
 import { mutations } from '@schema/schemaDefs/mutations.js';
@@ -18,7 +18,7 @@ const typeDefs = mergeTypeDefs([
   subscriptions,
 ]);
 
-let schema = buildSubgraphSchema({
+let schema = makeExecutableSchema({
   typeDefs: typeDefs,
   resolvers,
 });

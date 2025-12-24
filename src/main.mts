@@ -1,6 +1,5 @@
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import express from 'express';
@@ -11,23 +10,13 @@ import { WebSocketServer } from 'ws';
 
 import { ApolloServer } from '@apollo/server';
 import { unwrapResolverError } from '@apollo/server/errors';
-import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { expressMiddleware } from '@as-integrations/express5';
 import schema from '@schema/schema.mjs';
 import Environment from '@utils/environment.mjs';
 import logger from '@utils/logger.mjs';
 
 dayjs.extend(utc);
-const corsOrigins = [];
-
-if (Environment.NODE_ENV === 'local') {
-  corsOrigins.push('http://localhost:5173');
-}
-
-const corsPolicy = {
-  credentials: true,
-  origin: corsOrigins,
-};
 
 const graphQlPath = '/graphql';
 
@@ -44,7 +33,7 @@ async function startServer() {
     {
       schema,
       context: async (ctx, message, args) => {
-        logger.info('Received subscription request:', ctx, message, args);
+        logger.info({ ctx, message, args }, 'Received subscription request:');
       },
     },
     wsServer,
@@ -52,8 +41,9 @@ async function startServer() {
 
   const server = new ApolloServer({
     schema: schema,
-    introspection: Environment.NODE_ENV === 'local',
-    includeStacktraceInErrorResponses: Environment.NODE_ENV === 'local',
+    introspection: Environment.GRAPHQL_INTROSPECTION_ENABLED,
+    includeStacktraceInErrorResponses:
+      Environment.GRAPHQL_INCLUDE_STACKTRACE_IN_ERROR_RESPONSES,
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {
@@ -68,14 +58,17 @@ async function startServer() {
     ],
     formatError: (formattedError, error) => {
       const isGraphQLError = unwrapResolverError(error) instanceof GraphQLError;
-      logger.error('GraphQL error:', {
-        error,
-        formattedError,
-        isGraphQLError,
-      });
+      logger.error(
+        {
+          error,
+          formattedError,
+          isGraphQLError,
+        },
+        'GraphQL error:',
+      );
 
       //Only return obfuscated errors on non local dev environments
-      if (!isGraphQLError && Environment.NODE_ENV !== 'local') {
+      if (!isGraphQLError && Environment.GRAPHQL_OBFUSCATE_NON_GRAPHQL_ERRORS) {
         return { message: 'Internal server error' };
       }
       return formattedError;
@@ -93,11 +86,14 @@ async function startServer() {
 
     const measure = () => {
       const end = performance.now();
-      logger.info(`Performance of full request execution:`, {
-        query: req.body?.query,
-        variables: req.body?.variables,
-        timeTakenMs: end - start,
-      });
+      logger.info(
+        {
+          query: req.body?.query,
+          variables: req.body?.variables,
+          timeTakenMs: end - start,
+        },
+        `Performance of full request execution:`,
+      );
     };
 
     res.on('close', measure);
@@ -108,26 +104,25 @@ async function startServer() {
   app.use(
     graphQlPath,
     cookieParser(),
-    cors(corsPolicy),
     bodyParser.json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
-        logger.info('Received ordinary request:', {
-          body: req.body,
-        });
+        logger.info(
+          {
+            body: req.body,
+          },
+          'Received ordinary request:',
+        );
         return {};
       },
     }),
   );
 
-  httpServer.listen(
-    { port: Environment.SERVER_PORT, host: Environment.SERVER_HOST },
-    () => {
-      logger.info(
-        `Server ready at ${Environment.SERVER_HOST}:${Environment.SERVER_PORT}${graphQlPath}`,
-      );
-    },
-  );
+  httpServer.listen({ port: Environment.SERVER_PORT }, () => {
+    logger.info(
+      `Server ready at http://localhost:${Environment.SERVER_PORT}${graphQlPath}`,
+    );
+  });
 }
 
 startServer();

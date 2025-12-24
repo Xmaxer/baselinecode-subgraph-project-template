@@ -192,23 +192,25 @@ export type IResolversParentTypes = {
   Subscription: {};
 };
 
-export interface IDateScalarConfig
-  extends GraphQLScalarTypeConfig<IResolversTypes['Date'], any> {
+export interface IDateScalarConfig extends GraphQLScalarTypeConfig<
+  IResolversTypes['Date'],
+  any
+> {
   name: 'Date';
 }
 
 export type IMutationResolvers<
   ContextType = any,
-  ParentType extends
-    IResolversParentTypes['Mutation'] = IResolversParentTypes['Mutation'],
+  ParentType extends IResolversParentTypes['Mutation'] =
+    IResolversParentTypes['Mutation'],
 > = {
   doSomething?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type IMyReturnTypeResolvers<
   ContextType = any,
-  ParentType extends
-    IResolversParentTypes['MyReturnType'] = IResolversParentTypes['MyReturnType'],
+  ParentType extends IResolversParentTypes['MyReturnType'] =
+    IResolversParentTypes['MyReturnType'],
 > = {
   id?: Resolver<IResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
@@ -217,8 +219,8 @@ export type IMyReturnTypeResolvers<
 
 export type IQueryResolvers<
   ContextType = any,
-  ParentType extends
-    IResolversParentTypes['Query'] = IResolversParentTypes['Query'],
+  ParentType extends IResolversParentTypes['Query'] =
+    IResolversParentTypes['Query'],
 > = {
   getThing?: Resolver<IResolversTypes['MyReturnType'], ParentType, ContextType>;
   getThing2?: Resolver<
@@ -230,8 +232,8 @@ export type IQueryResolvers<
 
 export type ISubscriptionResolvers<
   ContextType = any,
-  ParentType extends
-    IResolversParentTypes['Subscription'] = IResolversParentTypes['Subscription'],
+  ParentType extends IResolversParentTypes['Subscription'] =
+    IResolversParentTypes['Subscription'],
 > = {
   greetings?: SubscriptionResolver<
     IResolversTypes['String'],

@@ -8,10 +8,10 @@ const userStatusChanged = {
     payload: unknown,
     variables: ISubscriptionGreetingsArgs,
   ) {
-    logger.info('In subscription handler:', payload, variables);
+    logger.info({ payload, variables }, 'In subscription handler:');
 
     for (const x of ['1', '2', '3', '4']) {
-      logger.info('Yielding:', x);
+      logger.info({ x }, 'Yielding:');
       yield {
         greetings: x,
       };

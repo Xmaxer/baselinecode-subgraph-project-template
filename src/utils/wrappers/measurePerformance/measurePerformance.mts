@@ -18,10 +18,13 @@ const measurePerformance = <FunctionType extends AnyFunction>(
 
     const measure = () => {
       const end = performance.now();
-      logger.info(`Function performance measurement:`, {
-        functionName: options?.functionName,
-        timeTakenMs: end - start,
-      });
+      logger.info(
+        {
+          functionName: options?.functionName,
+          timeTakenMs: end - start,
+        },
+        `Function performance measurement:`,
+      );
     };
     let result;
     try {
