@@ -45,11 +45,73 @@ export default [
       'no-restricted-imports': [
         'error',
         {
-          patterns: ['.*'],
+          patterns: [
+            {
+              regex: '^\\.\\.?/',
+              message: 'Relative imports are not allowed.',
+            },
+          ],
         },
       ],
       'no-console': 'error',
       '@typescript-eslint/no-empty-object-type': 'off',
+    },
+  },
+  {
+    files: ['src/**/*'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^\\.\\.?/',
+              message: 'Relative imports are not allowed.',
+            },
+            {
+              regex: '~database/repositories/*',
+              message: 'Should only import repositories from services',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/services/**/*'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^\\.\\.?/',
+              message: 'Relative imports are not allowed.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/database/**/*', 'src/services/**/*'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^\\.\\.?/',
+              message: 'Relative imports are not allowed.',
+            },
+            {
+              regex: '~src/generated/schema*',
+              message:
+                'Cannot import from schema in database or services. Build mappers instead.',
+            },
+          ],
+        },
+      ],
     },
   },
 ];
